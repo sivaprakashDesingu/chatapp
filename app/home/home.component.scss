@@ -1,0 +1,22 @@
+ @import "../../variable.scss";
+.cmpg{
+    .logsec{
+        padding:50px 0 30px;
+        img{width:150px;height:150px;display:block;margin:0 auto;}
+    }
+    .logfld{
+        text-align:center;width:85%;margin:0 auto;
+        a{
+             &:first-of-type{
+                margin-top:30px;
+             }
+             display:block;
+             color:$whitefc;
+             line-height:30px;
+        }
+        .subbtn{margin:0 0 20px!important;}
+    }
+    .mat-form-field{width:100%;font-family: 'Spectral', serif;}
+    
+    
+}

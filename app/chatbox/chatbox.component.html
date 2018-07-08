@@ -1,0 +1,42 @@
+  <div class="chatpage">
+      <header class="cmpg clr">
+          <div (click)=goBack() class="back fl">
+            <img src="assets/images/icons/back.svg" alt="Back">
+          </div>
+          <div class="perhede fl">
+            <img src="assets/images/icons/user.png" alt="Manoj">
+            <span>{{rname}}</span>
+          </div>
+          <div class="more fl">
+              <img src="assets/images/icons/more.svg" alt="More">
+          </div>
+      </header>
+
+      <div class="chrwrp">
+        <div class="chts">
+            <div class="timestamp">
+              <p>Today</p>
+            </div>
+
+    
+    <div class="chtlst clr"  >
+      <ul *ngFor="let chts of allChats" >
+       
+        <li *ngIf="chts.sender==lgid" class="fu fl">{{chts.message}}</li>
+        <li *ngIf="chts.sender!=lgid" class="fd fr">{{chts.message}}</li>
+      </ul>
+      
+
+
+            </div>
+        </div>
+      </div>
+
+      <div class="cmpg ftrtext">
+        <div class="msgbox">
+      <mat-form-field>
+      <input #chatid="ngModel" [(ngModel)]='umsg' name="umsg" required matInput placeholder="Type your message here.....">
+    </mat-form-field>
+    <img (click)=isMessageSent() src="assets/images/icons/send.svg" alt="send">
+      </div>
+  </div>

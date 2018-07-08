@@ -1,0 +1,48 @@
+<!-- <mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>MyMaterial</span>
+
+    <span class="example-spacer"></span>
+    
+    <button mat-button>About</button>
+    <button mat-button>Services</button>
+    <button mat-button>Contact</button>
+  </mat-toolbar-row>
+</mat-toolbar> -->
+
+<div class="cmpg hmpg">
+
+  <div class="logsec">
+      <img src="assets/images/icons/logo.png"/>
+  </div>
+  <form class="logfld">
+    <mat-form-field>
+    <input #chatid="ngModel" matInput placeholder="User id" [(ngModel)]='uid' name="uid" required>
+  </mat-form-field>
+  <div *ngIf="chatid.errors && (chatid.dirty || chatid.touched)" class="alert alert-danger">
+    <div [hidden]="!chatid.errors.required">
+      Let me know your Chat ID please
+    </div>
+    
+  </div> 
+  <mat-form-field>
+    <input [type]="'password'" matInput placeholder="Password" [(ngModel)]='upswd' name="upswd" required>
+  </mat-form-field>
+
+  <a   class="subbtn" >
+ <mat-chip-list class="mat-chip-list-stacked">
+  <mat-chip (click)="isLoggedIn()"  selected="true">
+    Submit
+  </mat-chip>
+</mat-chip-list> 
+
+
+  </a>
+  
+
+  <a href="#">Forgot your details?</a>
+  <a href="#">Create a new account</a>
+  </form>
+
+
+</div>

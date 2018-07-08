@@ -1,0 +1,72 @@
+<div class="dhbo">
+   <header class="cmpg clr">
+      <div (click)="goBack()"  class="ham fl">
+         <span class="hrl"></span>
+         <span class="hrl"></span>
+         <span class="hrl"></span>
+      </div>
+      <div  class="ttl fl">
+         {{lguser}}
+      </div>
+      <div class="upro fr">
+         <img src="assets/images/icons/user.png" alt="user icon"> 
+      </div>
+   </header>
+   <div class="chathst clr" *ngFor="let uls of userchats">
+     <ul>
+        <li *ngIf="uls.sender!=lgid" (click)="isChatEnabled(uls.sender)" class="clr">
+          <div class="whtust fl">
+            <div class="stwop">
+                  <img src="assets/images/icons/user.png" alt="Offline"/>
+                 <img class="sts"src="assets/images/icons/success.svg" alt="Offline"/>
+               </div>
+          </div>
+              <div class="chtlst fl">
+               <div class="uslst">
+                  <h3>{{uls.uname}}</h3>
+                  <p class="moode">{{uls.status}}</p>
+                  <p>{{uls.message}}</p>
+                  <!-- <p *ngIf="uls.sender!=lgid">{{uls.sender}}</p>
+                  <p *ngIf="uls.receiver!=lgid">{{uls.receiver}}</p> -->
+               </div>
+            </div>
+              <div class="tims fl">
+               <div class="timstp">
+                 <span>11.30 am</span>
+               </div>
+            </div>
+        </li>
+        <li *ngIf="uls.receiver!=lgid" (click)="isChatEnabled(uls.receiver)" class="clr">
+            <div class="whtust fl">
+              <div class="stwop">
+                    <img src="assets/images/icons/user.png" alt="Offline"/>
+                   <img class="sts"src="assets/images/icons/success.svg" alt="Offline"/>
+                 </div>
+            </div>
+                <div class="chtlst fl">
+                 <div class="uslst">
+                    <h3>{{uls.uname}}</h3>
+                    <p class="moode">{{uls.status}}</p>
+                    <p>{{uls.message}}</p>
+                    <!-- <p *ngIf="uls.sender!=lgid">{{uls.sender}}</p>
+                    <p *ngIf="uls.receiver!=lgid">{{uls.receiver}}</p> -->
+                 </div>
+              </div>
+                <div class="tims fl">
+                 <div class="timstp">
+                   <span>11.30 am</span>
+                 </div>
+              </div>
+          </li>
+     </ul>
+      
+   </div>
+
+   <div class="plus">
+      
+   </div>
+
+   <!-- <div class="shcnt">
+
+   </div> -->
+</div>
