@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { RegisterComponent } from './register/register.component';
 import { ChatboxComponent } from './chatbox/chatbox.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 /* Material packages */
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,6 +20,7 @@ import  { ChatService } from './service/service';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +28,8 @@ import { CookieService } from 'ngx-cookie-service';
     DashboardComponent,
     ForgotComponent,
     RegisterComponent,
-    ChatboxComponent
+    ChatboxComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,
