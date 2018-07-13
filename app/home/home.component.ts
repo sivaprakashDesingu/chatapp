@@ -14,6 +14,7 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  
   private ulst;
   private uid;
   private upswd;
@@ -28,16 +29,13 @@ export class HomeComponent implements OnInit {
         () => console.log(this.ulst));
   }
     isLoggedIn(){
-    
       for(var i=0;i<this.ulst.length;i++){
-        //console.log(this.upswd+"=="+this.ulst[i].pswd+""+this.uid+"=="+this.ulst[i].uid);  
         if(this.upswd==this.ulst[i].pswd && this.uid==this.ulst[i].uid){
           this.cookie.set( 'luser', this.uid );
           this.cookie.set( 'luname', this.ulst[i].uname );
-         // console.log("Matched");
           this.router.navigate(['/dash']);
         }else{
-         // console.log("somethis Wrong");
+        
         }
       }
     }

@@ -1,3 +1,113 @@
-<p>
-  register works!
-</p>
+<!-- <mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>MyMaterial</span>
+
+    <span class="example-spacer"></span>
+    
+    <button mat-button>About</button>
+    <button mat-button>Services</button>
+    <button mat-button>Contact</button>
+  </mat-toolbar-row>
+</mat-toolbar> -->
+
+<div class="cmpg hmpg">
+
+
+  <form class="logfld rgst">
+    <mat-form-field>
+    <input #chatid="ngModel" matInput placeholder="User id" [(ngModel)]='uid' name="uid" required>
+  </mat-form-field>
+  <div *ngIf="chatid.errors && (chatid.dirty || chatid.touched)" class="alert alert-danger">
+    <div [hidden]="!chatid.errors.required">
+      Let me know your Chat ID please
+    </div>
+    
+  </div> 
+  <mat-form-field>
+    <input #funm="ngModel" matInput placeholder="Your Full name" [(ngModel)]='fullna' name="fullna" required>
+  </mat-form-field>
+  <div *ngIf="funm.errors && (funm.dirty || funm.touched)" class="alert alert-danger">
+    <div [hidden]="!funm.errors.required">
+      Let me know your Chat ID please
+    </div>
+    
+  </div> 
+
+  <mat-form-field>
+    <input #emid="ngModel" matInput placeholder="Email id" [(ngModel)]='ueid' name="ueid" required>
+  </mat-form-field>
+  <div *ngIf="emid.errors && (emid.dirty || emid.touched)" class="alert alert-danger">
+    <div [hidden]="!emid.errors.required">
+      Let me know your Email please
+    </div>
+    
+  </div> 
+  <mat-form-field>
+    <input [type]="'password'" matInput placeholder="Password" [(ngModel)]='upswd' name="upswd" required>
+  </mat-form-field>
+
+  <a   class="subbtn" >
+ <mat-chip-list class="mat-chip-list-stacked">
+  <mat-chip (click)="isUserRegisterSubmitted()"  selected="true">
+    Submit
+  </mat-chip>
+</mat-chip-list> 
+
+
+  </a>
+  
+
+  <a routerLink="/">Already have account?</a>
+
+  </form>
+
+  <div id="otpopen" class="otpsec cmpg">
+
+    <h2>Account Verification</h2>
+    <p>Please check your registered email to the OTP</p>
+      <form class="logfld rgst">
+    <mat-form-field>
+    <input #otp="ngModel" matInput placeholder="Enter OTP Here..." [(ngModel)]='rotp' name="rotp" required>
+  </mat-form-field>
+ 
+  <a   class="subbtn" >
+ <mat-chip-list class="mat-chip-list-stacked">
+  <mat-chip (click)="isOTPVerified()"  selected="true">
+    Submit
+  </mat-chip>
+</mat-chip-list> 
+
+  </a>
+  
+
+  <a routerLink="/">Already have account?</a>
+
+  <div class="rsotp">
+    <p>If your not received OTP.<span>Please Enter your registered Email id</span></p>
+     <mat-form-field>
+    <input #mid="ngModel" matInput placeholder="Registered Mail Id / Userid" [(ngModel)]='rmid' name="rmid" required>
+  </mat-form-field>
+
+    <a   class="subbtn" >
+ <mat-chip-list class="mat-chip-list-stacked">
+  <mat-chip (click)="reGenerateOTP()"  selected="true">
+    Generate OTP
+  </mat-chip>
+</mat-chip-list> 
+
+
+  </a>
+  <p *ngIf="resnt">Check your Email, We have re-sent the OTP.</p>
+  </div>
+  </form>
+
+  </div>
+
+
+
+  
+  <div id="otpst" class="otpsec cmpg">
+    <p>Your Email Verification Done.</p>
+    <a href="/">Continue</a>
+  </div>
+</div>

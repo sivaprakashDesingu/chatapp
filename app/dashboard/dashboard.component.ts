@@ -16,6 +16,10 @@ export class DashboardComponent implements OnInit {
   private lgid;
   private lguser;
   private userchats;
+  private srfr;     //variable for global search
+  private srfrlst;
+
+
   constructor(private router: Router,private cookie: CookieService,private loc: Location,private http: HttpClient) { }
   goBack(){
     this.loc.back();
@@ -38,8 +42,24 @@ export class DashboardComponent implements OnInit {
 
      this.router.navigate(['/dash/chat/',rid]);
   }
+
+isFoundFriend(){
+  //console.log(this.srfr);
+  this.http.get('http://localhost/chat/isFoundFriend.php', {
+      params: {
+        srid: this.srfr
+
+      }
+    })
+        .subscribe(data => {
+          this.srfrlst = data;
+        },
+        err => console.log(err),
+        () => console.log(JSON.stringify(this.srfrlst)));
+}
+
   getUserChats() {
-    this.http.get('http://localhost/chat/getMsgOfUser.php', {
+    this.http.get('http://localhost/chat/getMsgOfUser2.php', {
       params: {
         luid: this.lgid,
 

@@ -1,3 +1,95 @@
-<p>
-  forgot works!
-</p>
+<!-- <mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>MyMaterial</span>
+
+    <span class="example-spacer"></span>
+    
+    <button mat-button>About</button>
+    <button mat-button>Services</button>
+    <button mat-button>Contact</button>
+  </mat-toolbar-row>
+</mat-toolbar> -->
+
+<div class="cmpg hmpg">
+
+
+  <form class="logfld rgst">
+    <mat-form-field>
+    <input #chatid="ngModel" matInput placeholder="User id / Email id" [(ngModel)]='uid' name="uid" required>
+  </mat-form-field>
+  <div *ngIf="chatid.errors && (chatid.dirty || chatid.touched)" class="alert alert-danger">
+    <div [hidden]="!chatid.errors.required">
+      Let me know your Chat ID please
+    </div>
+  </div> 
+ 
+
+  
+
+  <a   class="subbtn" >
+ <mat-chip-list class="mat-chip-list-stacked">
+  <mat-chip (click)="forgotPswdOTP()"  selected="true">
+    Submit
+  </mat-chip>
+</mat-chip-list> 
+  </a>
+  
+  
+
+
+  <a routerLink="/rgstr">Need new Account?</a>
+  <a routerLink="/">Got your password?</a>
+
+  </form>
+
+  
+  
+<div id="otpv" class="otpsec cmpg">
+
+    <h2>Reset your password</h2>
+      <p>Please check you mail for the One time password..</p>
+      <form class="logfld rgst">
+    <mat-form-field>
+    <input #otp="ngModel" matInput placeholder="Enter your OTP.." [(ngModel)]='rotp' name="rotp" required>
+  </mat-form-field>
+
+ 
+  <a   class="subbtn" >
+ <mat-chip-list class="mat-chip-list-stacked">
+  <mat-chip (click)="isvalidRstOTP()"  selected="true">
+    Submit
+  </mat-chip>
+</mat-chip-list> 
+
+  </a>
+      </form>
+  </div>
+
+
+
+  <div id="rst" class="otpsec cmpg">
+
+    <h2>Reset your password</h2>
+    
+      <form class="logfld rgst">
+    <mat-form-field>
+    <input #rspswd="ngModel" matInput placeholder="New password" [(ngModel)]='rpswd' name="rpswd" required>
+  </mat-form-field>
+  <mat-form-field>
+    <input #cpswd="ngModel" matInput placeholder="Confirm password" [(ngModel)]='crpswd' name="crpswd" required>
+  </mat-form-field>
+ 
+  <a   class="subbtn" >
+ <mat-chip-list class="mat-chip-list-stacked">
+  <mat-chip (click)="isResetDone()"  selected="true">
+    Submit
+  </mat-chip>
+</mat-chip-list> 
+
+  </a>
+      </form>
+
+      <p class="rstmsg" *ngIf="fienb" >Password Reseted successfully <a href="/">Login</a><p>
+  </div>
+
+</div>
