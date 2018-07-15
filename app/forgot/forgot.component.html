@@ -13,56 +13,61 @@
 <div class="cmpg hmpg">
 
 
-  <form class="logfld rgst">
+  <form validate #frForm="ngForm" class="logfld rgst">
     <mat-form-field>
-    <input #chatid="ngModel" matInput placeholder="User id / Email id" [(ngModel)]='uid' name="uid" required>
-  </mat-form-field>
-  <div *ngIf="chatid.errors && (chatid.dirty || chatid.touched)" class="alert alert-danger">
-    <div [hidden]="!chatid.errors.required">
-      Let me know your Chat ID please
+      <input #chatid="ngModel" matInput placeholder="User id / Email id" [(ngModel)]='uid' name="uid" required>
+    </mat-form-field>
+    <div *ngIf="chatid.errors && (chatid.dirty || chatid.touched)" class="alert alert-danger">
+      <p class="ermsg mrdow" [hidden]="!chatid.errors.required">
+        Either user id or Emamil id Must!
+      </p>
     </div>
-  </div> 
- 
-
-  
-
-  <a   class="subbtn" >
- <mat-chip-list class="mat-chip-list-stacked">
-  <mat-chip (click)="forgotPswdOTP()"  selected="true">
-    Submit
-  </mat-chip>
-</mat-chip-list> 
-  </a>
-  
-  
 
 
-  <a routerLink="/rgstr">Need new Account?</a>
-  <a routerLink="/">Got your password?</a>
+
+
+    <a class="subbtn">
+      <mat-chip-list class="mat-chip-list-stacked">
+        <mat-chip [ngClass]="{'disables': frForm.form.invalid,'enabled' : frForm.form.valid }" (click)="forgotPswdOTP()" selected="true">
+          Submit
+        </mat-chip>
+      </mat-chip-list>
+    </a>
+
+
+
+
+    <a routerLink="/rgstr">Need new Account?</a>
+    <a routerLink="/">Got your password?</a>
 
   </form>
 
-  
-  
-<div id="otpv" class="otpsec cmpg">
+
+
+  <div id="otpv" class="otpsec cmpg">
 
     <h2>Reset your password</h2>
-      <p>Please check you mail for the One time password..</p>
-      <form class="logfld rgst">
-    <mat-form-field>
-    <input #otp="ngModel" matInput placeholder="Enter your OTP.." [(ngModel)]='rotp' name="rotp" required>
-  </mat-form-field>
+    <p>Please check you mail for the One time password..</p>
+    <form validate #rotpForm="ngForm" class="logfld rgst">
+      <mat-form-field>
+        <input #otp="ngModel" matInput placeholder="Enter your OTP.." [(ngModel)]='rotp' name="rotp" required>
+      
+      </mat-form-field>
+      <div *ngIf="otp.errors && (otp.dirty || otp.touched)" class="alert alert-danger">
+          <p class="ermsg mrdow" [hidden]="!otp.errors.required">
+            OTP Must
+          </p>
+        </div>
 
- 
-  <a   class="subbtn" >
- <mat-chip-list class="mat-chip-list-stacked">
-  <mat-chip (click)="isvalidRstOTP()"  selected="true">
-    Submit
-  </mat-chip>
-</mat-chip-list> 
+      <a class="subbtn">
+        <mat-chip-list class="mat-chip-list-stacked">
+          <mat-chip [ngClass]="{'disables': rotpForm.form.invalid,'enabled' : rotpForm.form.valid }" (click)="isvalidRstOTP()" selected="true">
+            Submit
+          </mat-chip>
+        </mat-chip-list>
 
-  </a>
-      </form>
+      </a>
+    </form>
   </div>
 
 
@@ -70,26 +75,42 @@
   <div id="rst" class="otpsec cmpg">
 
     <h2>Reset your password</h2>
-    
-      <form class="logfld rgst">
-    <mat-form-field>
-    <input #rspswd="ngModel" matInput placeholder="New password" [(ngModel)]='rpswd' name="rpswd" required>
-  </mat-form-field>
-  <mat-form-field>
-    <input #cpswd="ngModel" matInput placeholder="Confirm password" [(ngModel)]='crpswd' name="crpswd" required>
-  </mat-form-field>
- 
-  <a   class="subbtn" >
- <mat-chip-list class="mat-chip-list-stacked">
-  <mat-chip (click)="isResetDone()"  selected="true">
-    Submit
-  </mat-chip>
-</mat-chip-list> 
 
-  </a>
-      </form>
+    <form validate #rstpFom="ngForm" class="logfld rgst">
+      <mat-form-field>
+        <input #rspswd="ngModel" [type]="'password'"  matInput placeholder="New password" minlength="6"  maxlength="16" [(ngModel)]='rpswd' name="rpswd" required>
+      </mat-form-field>
+      <div *ngIf="rspswd.errors && (rspswd.dirty || rspswd.touched)" class="alert alert-danger">
+          <p class="ermsg mrdow" [hidden]="!rspswd.errors.required">
+            Password Must
+          </p>
+          <p class="ermsg mrdow" [hidden]="!rspswd.errors.minlength">
+              Password should be 6 characters.
+            </p>
+           
+        </div>
 
-      <p class="rstmsg" *ngIf="fienb" >Password Reseted successfully <a href="/">Login</a><p>
+      <mat-form-field>
+        <input #cpswd="ngModel" [type]="'password'"  matInput placeholder="Confirm password" [(ngModel)]='crpswd' name="crpswd" required>
+      </mat-form-field>
+      <div *ngIf="cpswd.errors && (cpswd.dirty || cpswd.touched)" class="alert alert-danger">
+          <p class="ermsg mrdow" [hidden]="!cpswd.errors.required">
+              Password Must
+          </p>
+        </div>
+      <a class="subbtn">
+        <mat-chip-list class="mat-chip-list-stacked">
+          <mat-chip [ngClass]="{'disables': rstpFom.form.invalid,'enabled' : rstpFom.form.valid }"  (click)="isResetDone()" selected="true">
+            Submit
+          </mat-chip>
+        </mat-chip-list>
+
+      </a>
+    </form>
+
+    <p class="rstmsg" *ngIf="fienb">Password Reseted successfully
+      <a href="/">Login</a>
+      <p>
   </div>
 
 </div>

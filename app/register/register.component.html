@@ -13,42 +13,55 @@
 <div class="cmpg hmpg">
 
 
-  <form class="logfld rgst">
+  <form validate #rgForm="ngForm" class="logfld rgst">
     <mat-form-field>
     <input #chatid="ngModel" matInput placeholder="User id" [(ngModel)]='uid' name="uid" required>
   </mat-form-field>
   <div *ngIf="chatid.errors && (chatid.dirty || chatid.touched)" class="alert alert-danger">
-    <div [hidden]="!chatid.errors.required">
-      Let me know your Chat ID please
-    </div>
+    <p class="ermsg" [hidden]="!chatid.errors.required">
+      Let's know your user id please
+    </p>
     
   </div> 
   <mat-form-field>
     <input #funm="ngModel" matInput placeholder="Your Full name" [(ngModel)]='fullna' name="fullna" required>
   </mat-form-field>
   <div *ngIf="funm.errors && (funm.dirty || funm.touched)" class="alert alert-danger">
-    <div [hidden]="!funm.errors.required">
-      Let me know your Chat ID please
-    </div>
+    <p class="ermsg" [hidden]="!funm.errors.required">
+      Let's know your Full Name please
+    </p>
     
   </div> 
 
   <mat-form-field>
-    <input #emid="ngModel" matInput placeholder="Email id" [(ngModel)]='ueid' name="ueid" required>
+    <input #emid="ngModel" matInput placeholder="Email id" [(ngModel)]='ueid' pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" name="ueid" required>
   </mat-form-field>
   <div *ngIf="emid.errors && (emid.dirty || emid.touched)" class="alert alert-danger">
-    <div [hidden]="!emid.errors.required">
-      Let me know your Email please
-    </div>
+    <p class="ermsg" [hidden]="!emid.errors.required">
+      Let's know your Email please
+    </p>
+    <p class="ermsg" [hidden]="!emid.errors.pattern">
+      Incorrect format
+    </p>
     
   </div> 
   <mat-form-field>
-    <input [type]="'password'" matInput placeholder="Password" [(ngModel)]='upswd' name="upswd" required>
+    <input #rpsd="ngModel" [type]="'password'" minlength="6"  maxlength="16" matInput placeholder="Password" [(ngModel)]='upswd' name="upswd" required>
   </mat-form-field>
+ 
+  <div *ngIf="rpsd.errors && (rpsd.dirty || rpsd.touched)" class="alert alert-danger">
+    <p class="ermsg mrdow" [hidden]="!rpsd.errors.required">
+      Passowrd Must!
+    </p>
+    <p class="ermsg mrdow" [hidden]="!rpsd.errors.minlength">
+      Password should be 6 characters.
+    </p>
+    
+  </div> 
 
   <a   class="subbtn" >
  <mat-chip-list class="mat-chip-list-stacked">
-  <mat-chip (click)="isUserRegisterSubmitted()"  selected="true">
+  <mat-chip [ngClass]="{'disables': rgForm.form.invalid,'enabled' : rgForm.form.valid }" (click)="isUserRegisterSubmitted()"  selected="true">
     Submit
   </mat-chip>
 </mat-chip-list> 
@@ -60,19 +73,27 @@
   <a routerLink="/">Already have account?</a>
 
   </form>
-
+  
   <div id="otpopen" class="otpsec cmpg">
 
     <h2>Account Verification</h2>
     <p>Please check your registered email to the OTP</p>
-      <form class="logfld rgst">
+      <form validate #otpForm="ngForm" class="logfld rgst">
     <mat-form-field>
     <input #otp="ngModel" matInput placeholder="Enter OTP Here..." [(ngModel)]='rotp' name="rotp" required>
   </mat-form-field>
+
+  <div *ngIf="otp.errors && (otp.dirty || otp.touched)" class="alert alert-danger">
+    <p class="ermsg mrdow" [hidden]="!otp.errors.required">
+      Passowrd Must!
+    </p>
+   
+    
+  </div> 
  
   <a   class="subbtn" >
  <mat-chip-list class="mat-chip-list-stacked">
-  <mat-chip (click)="isOTPVerified()"  selected="true">
+  <mat-chip [ngClass]="{'disables': otpForm.form.invalid,'enabled' : otpForm.form.valid }" (click)="isOTPVerified()"  selected="true">
     Submit
   </mat-chip>
 </mat-chip-list> 
@@ -82,15 +103,25 @@
 
   <a routerLink="/">Already have account?</a>
 
+</form>
+<div class="hr"></div>
   <div class="rsotp">
+      <form validate #otpagForm="ngForm" class="logfld rgst">
     <p>If your not received OTP.<span>Please Enter your registered Email id</span></p>
      <mat-form-field>
     <input #mid="ngModel" matInput placeholder="Registered Mail Id / Userid" [(ngModel)]='rmid' name="rmid" required>
-  </mat-form-field>
+  </mat-form-field> <div *ngIf="mid.errors && (mid.dirty || mid.touched)" class="alert alert-danger">
+      <p class="ermsg mrdow" [hidden]="!mid.errors.required">
+        Either user id or  Emamil id Must!
+      </p>
+     
+      
+    </div> 
+
 
     <a   class="subbtn" >
  <mat-chip-list class="mat-chip-list-stacked">
-  <mat-chip (click)="reGenerateOTP()"  selected="true">
+  <mat-chip [ngClass]="{'disables': otpagForm.form.invalid,'enabled' : otpagForm.form.valid }" (click)="reGenerateOTP()"  selected="true">
     Generate OTP
   </mat-chip>
 </mat-chip-list> 
@@ -98,8 +129,9 @@
 
   </a>
   <p *ngIf="resnt">Check your Email, We have re-sent the OTP.</p>
+</form>
   </div>
-  </form>
+ 
 
   </div>
 
