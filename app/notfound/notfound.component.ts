@@ -14,23 +14,26 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class NotfoundComponent implements OnInit {
 
+  filesToUpload: Array<File> = [];
 
-  selectedFile: File;
+  upload() {
+    const formData: any = new FormData();
+    const files: Array<File> = this.filesToUpload;
+    console.log(files);
 
-  onFileChanged(event) {
-    this.selectedFile = event.target.files[0];
-    console.log(this.selectedFile);
-  }
+    for(let i =0; i < files.length; i++){
+        formData.append("uploads[]", files[i], files[i]['name']);
+    }
+    console.log('form data variable :   '+ formData.toString());
+    this.http.post('http://sarvaamexporters.com/shiva/upload.php', formData)
+        //.map(files => files.json())
+        .subscribe(files => console.log('files', files))
+}
 
-  onUpload() {
-    const uploadData = new FormData();
-    uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
-    console.log(uploadData);
-    this.http.post('http://localhost/tryouts/upload.php', uploadData)
-    .subscribe(res=>{
-
-    });
-  }
+fileChangeEvent(fileInput: any) {
+    this.filesToUpload = <Array<File>>fileInput.target.files;
+    //this.product.photo = fileInput.target.files[0]['name'];
+}
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
