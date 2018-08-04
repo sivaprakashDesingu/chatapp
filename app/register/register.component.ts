@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -20,10 +20,34 @@ export class RegisterComponent implements OnInit {
   private rmid;
   private resnt = false;
   private rotp;
+  //private Indata = {'uid': this.uid, 'fname': this.fullna,'email':this.ueid,'pswd':this.upswd};
+  private Indata = {};
   constructor(private router: Router, private http: HttpClient) { }
 
 
+
   isUserRegisterSubmitted() {
+  
+    this.Indata = {'uid': this.uid, 'fname': this.fullna,'email':this.ueid,'pswd':this.upswd};
+
+    this.http.post('http://localhost:3000/isUserRegisterSubmitted', this.Indata)
+        //.map(files => files.json())
+        .subscribe(data => {
+          //console.log("entered");
+         // console.log(data)
+          if (data==1){
+            console.log(data);
+            document.getElementById("otpopen").classList.add("open");
+          }else if (data=='ER_DUP_ENTRY'){
+            console.log("else"+data);
+          }
+            
+        },
+        err => console.log(err),
+        () => console.log());
+  }
+
+  /*isUserRegisterSubmitted() {
 
 
     this.http.get('http://localhost/chat/isUserRegisterSubmitted.php', {
@@ -38,19 +62,20 @@ export class RegisterComponent implements OnInit {
       err => console.log(err),
       () => console.log());
 
-  }
+  }*/
 
   reGenerateOTP() {
-    this.http.get('http://localhost/chat/reGenerateOTP.php', {
-      params: {
-        uid: this.rmid
-      }
-    })
+    this.Indata = {'rgotp': this.rmid};
+    //console.log(this.rotp);
+    this.http.post('http://localhost:3000/reGenerateOTP', this.Indata)
       .subscribe(data => {
         console.log(data);
         //this.GetOneComunicationChatHis();
-        if (data == "True")
+        if (data == 1)
           this.resnt = true;
+        else{
+            this.resnt = false; 
+        }
       },
       err => console.log(err),
       () => console.log());
@@ -58,20 +83,38 @@ export class RegisterComponent implements OnInit {
   }
 
   isOTPVerified() {
-    this.http.get('http://localhost/chat/isOTPVerified.php', {
-      params: {
-        otp: this.rotp
-      }
-    })
-      .subscribe(data => {
-        if (data == "True")
-          document.getElementById("otpst").classList.add("open")
+    this.Indata = {'rotp': this.rotp};
+    //console.log(this.rotp);
+    this.http.post('http://localhost:3000/isOTPVerified', this.Indata)
+        //.map(files => files.json())
+        .subscribe(data => {
+          //console.log("entered");
+          console.log(data)
+          if (data==1){
+           // console.log(data);
+            document.getElementById("otpst").classList.add("open")
+          }else{
+            console.log("else"+data);
+          }
+            
+        },
+        err => console.log(err),
+        () => console.log());
+    // this.http.get('http://localhost:3000/isOTPVerified.php', {
+    //   params: {
+    //     otp: this.rotp
+    //   }
+    // })
+    //   .subscribe(data => {
+    //     if (data == "True")
+    //       document.getElementById("otpst").classList.add("open")
 
-      },
-      err => console.log(err),
-      () => console.log());
+    //   },
+    //   err => console.log(err),
+    //   () => console.log());
   }
   ngOnInit() {
+    //this.registerPOst();
   }
 
 }

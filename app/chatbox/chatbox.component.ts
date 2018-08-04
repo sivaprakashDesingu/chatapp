@@ -60,7 +60,7 @@ export class ChatboxComponent implements OnInit {
 
 
   GetOneComunicationChatHis() {
-    this.http.get('http://localhost/chat/whichChatEnabled.php', {
+    this.http.get('http://localhost:3000/whichChatEnabled', {
       params: {
         rid:this.rcid,
         luid: this.lgid 

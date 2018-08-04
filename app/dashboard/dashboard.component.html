@@ -1,91 +1,174 @@
 <div class="dhbo">
-   <header class="cmpg clr">
-      <div (click)="goBack()"  class="ham fl">
-         <span class="hrl"></span>
-         <span class="hrl"></span>
-         <span class="hrl"></span>
-      </div>
-      <div  class="ttl fl">
-         {{lguser}}
-      </div>
-      <div class="upro fr">
-         <img src="assets/images/icons/user.png" alt="user icon"> 
-      </div>
-   </header>
-   <div class="chathst clr" *ngFor="let uls of userchats">
-     <ul>
-        <li *ngIf="uls.sender!=lgid" (click)="isChatEnabled(uls.sender)" class="clr">
-          <div class="whtust fl">
-            <div class="stwop">
-                  <img class="udp" [src]="'data:image/png;base64,' + uls.dpimg.udp"  alt="UserDP"/>
-                 <img class="sts"src="assets/images/icons/success.svg" alt="Offline"/>
-               </div>
-          </div>
-              <div class="chtlst fl">
-               <div class="uslst">
-                  <h3>{{uls.uname}}</h3>
-                  <p class="moode">{{uls.status}}</p>
-                  <p>{{uls.message}}</p>
-                  <!-- <p *ngIf="uls.sender!=lgid">{{uls.sender}}</p>
-                  <p *ngIf="uls.receiver!=lgid">{{uls.receiver}}</p> -->
-               </div>
-            </div>
-              <div class="tims fl">
-               <div class="timstp">
-                 <span>11.30 am</span>
-               </div>
-            </div>
-        </li>
-        <li *ngIf="uls.receiver!=lgid" (click)="isChatEnabled(uls.receiver)" class="clr">
-            <div class="whtust fl">
-              <div class="stwop">
-                    <img [src]="'data:image/png;base64,' + uls.dpimg.udp" class="udp" alt="UserDP"/>
-                   <img class="sts"src="assets/images/icons/success.svg" alt="Offline"/>
-                 </div>
-            </div>
+    <header class="cmpg clr">
+        <div (click)="goBack()" class="ham fl">
+            <span class="hrl"></span>
+            <span class="hrl"></span>
+            <span class="hrl"></span>
+        </div>
+        <div class="ttl fl">
+            {{lguser}}
+        </div>
+        <div (click)="enableUProfile()" class="upro fr">
+            <img src="assets/images/icons/user.png" alt="user icon">
+        </div>
+    </header>
+    <div class="chathst clr" *ngFor="let uls of userchats">
+        <ul>
+            <li *ngIf="uls.sender!=lgid" (click)="isChatEnabled(uls.sender)" class="clr">
+                <div class="whtust fl">
+                    <div class="stwop">
+                            <img class="udp" src="assets/images/icons/user.png" alt="Offline" />
+                        <!-- <img class="udp" [src]="'data:image/png;base64,' + uls.dpimg.udp" alt="UserDP" /> -->
+                        <img class="sts" src="assets/images/icons/success.svg" alt="Offline" />
+                    </div>
+                </div>
                 <div class="chtlst fl">
-                 <div class="uslst">
-                    <h3>{{uls.uname}}</h3>
-                    <p class="moode">{{uls.status}}</p>
-                    <p>{{uls.message}}</p>
-                    <!-- <p *ngIf="uls.sender!=lgid">{{uls.sender}}</p>
-                    <p *ngIf="uls.receiver!=lgid">{{uls.receiver}}</p> -->
-                 </div>
-              </div>
+                    <div class="uslst">
+                        <h3>{{uls.uname}}</h3>
+                        <p class="moode">{{uls.status}}</p>
+                        <p>{{uls.message}}</p>
+                        <!-- <p *ngIf="uls.sender!=lgid">{{uls.sender}}</p>
+                  <p *ngIf="uls.receiver!=lgid">{{uls.receiver}}</p> -->
+                    </div>
+                </div>
                 <div class="tims fl">
-                 <div class="timstp">
-                   <span>11.30 am</span>
-                 </div>
-              </div>
-          </li>
-     </ul>
-      
-   </div>
+                    <div class="timstp">
+                        <span>11.30 am</span>
+                    </div>
+                </div>
+            </li>
+            <li *ngIf="uls.receiver!=lgid" (click)="isChatEnabled(uls.receiver)" class="clr">
+                <div class="whtust fl">
+                    <div class="stwop">
+                            <img class="udp" src="assets/images/icons/user.png" alt="Offline" />
+                        <!-- <img [src]="'data:image/png;base64,' + uls.dpimg.udp" class="udp" alt="UserDP" /> -->
+                        <img class="sts" src="assets/images/icons/success.svg" alt="Offline" />
+                    </div>
+                </div>
+                <div class="chtlst fl">
+                    <div class="uslst">
+                        <h3>{{uls.uname}}</h3>
+                        <p class="moode">{{uls.status}}</p>
+                        <p>{{uls.message}}</p>
 
-   <div class="plus">
-      
-   </div>
+                    </div>
+                </div>
+                <div class="tims fl">
+                    <div class="timstp">
+                        <span>11.30 am</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
+    <span (click)='enableSearchFun()' class="plus"> </span>
 
 
 </div>
-   <div id="frreq" class="frreq cmpg ">
-      
-<form class="frstch">
-    <mat-form-field>
-    <input (keyup) = "isFoundFriend()" #searchfr="ngModel" matInput placeholder="User id / Email id / User name" [(ngModel)]='srfr' name="srfr" >
-  </mat-form-field>
-  <div class="srcht clr" >
-  <ul class="filter" >
-      <li class="sritme" *ngFor="let slst of srfrlst">
-          <div class="srin">
-            <p>
-              <span class="fl lbl">Email</span><span class="fl value">{{slst.email}}</span>
-            </p>
-          </div>
-      </li>
-  </ul>
-  </div>
-</form>
+
+<!-- User searching their Know person structure starts here-->
+<div [ngClass]="{'open': isSearchVisible }" id="frreq" class="frreq ">
+    <span (click)='closeSearchFun()' class="clshlg">
+            <i class="fas fa-times"></i>
+    </span>
+    <form class="cmpg frstch">
+        <mat-form-field>
+            <input (keyup)="isFoundFriend()" #searchfr="ngModel" matInput placeholder="User id / Email id / User name" [(ngModel)]='srfr'
+                name="srfr">
+        </mat-form-field>
+
+    </form>
+    <div class="srcht clr">
+        <ul class="filter">
+            <li class="sritme" *ngFor="let slst of srfrlst" >
+                <div class="srin clr">
+                    <div class=" suicn">
+                        <img src="assets/images/icons/user.svg" alt="un">
+                    </div>
+                    <div class="fr sudet">
+                        <p>{{slst.email}}</p>
+                        <p>{{slst.uid}}</p>
+                        <p>{{slst.uname}}</p>
+                    </div>
+                    <div class="frbn">
+                        <mat-chip-list class="mat-chip-list-stacked clr">
+                            <mat-chip class="cmpg" (click)="isResetDone()" selected="true">
+                                Sent Request
+                            </mat-chip>
+                        </mat-chip-list>
+                        <!-- <mat-chip-list class="mat-chip-list-stacked">
+                    <mat-chip   (click)="isResetDone()" selected="true">
+                      Cancel
+                    </mat-chip>
+                  </mat-chip-list> -->
+                    </div>
+                </div>
+
+            </li>
+            
+        </ul>
+    </div>
 
 
-  </div>
+</div>
+<!-- User searching their Know person structure  end here -->
+
+<!-- User profile update here-->
+<div [ngClass]="{'open': isUserProvileEnabled }" class="frreq usrpro">
+    <div class="usbnr">
+        <div class="cvr">
+            <div (click)= 'closeUProfile()'class="hdr">
+                <img src="assets/images/icons/back.svg" alt="Back">
+            </div>
+            <div class="upr">
+                <img src="/assets/images/user-profile/sp.jpg" alt="userprofile" />
+                <h3>Sivaprakash Desingu</h3>
+                <p>Tamilnadu, Chennai</p>
+
+            </div>
+        </div>
+        <ul class="uchos">
+            <li>
+                <div class="tabicon">
+                        <i class="fas fa-user"></i>
+                </div>
+                
+                <p>Profile</p>
+            </li>
+            <li>
+               
+                    <div class="tabicon">
+                            <i class="fas fa-user-friends"></i>
+                    </div>
+                    
+                    <p>Friends</p>
+            </li>
+            <li>
+                    <div class="tabicon">
+                            <i class="fas fa-edit"></i>
+                    </div>
+                <p>Friend Request</p>
+            </li>
+        </ul>
+
+        <div id="prosec" class="pro_sc">
+            <form >
+                <mat-form-field>
+                    <input #chatid="ngModel" matInput placeholder="Full Name" [(ngModel)]='uid' name="uid" required>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                    <input #chatid="ngModel" matInput placeholder="Email id" [(ngModel)]='uid' name="uid" required>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input #chatid="ngModel" matInput placeholder="Mobile Nmber" [(ngModel)]='uid' name="uid" required>
+                  </mat-form-field>
+            </form>
+        </div>
+
+
+    </div>
+</div>
+<!-- User profile update end here-->

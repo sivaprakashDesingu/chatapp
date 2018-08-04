@@ -18,11 +18,24 @@ export class DashboardComponent implements OnInit {
   private userchats;
   private srfr;     //variable for global search
   private srfrlst;
-
+  isSearchVisible: boolean;
+  isUserProvileEnabled :boolean;
 
   constructor(private router: Router,private cookie: CookieService,private loc: Location,private http: HttpClient) { }
   goBack(){
     this.loc.back();
+  }
+  enableSearchFun(){
+    this.isSearchVisible = true;
+  }
+  closeSearchFun(){
+    this.isSearchVisible = false;
+  }
+  enableUProfile(){
+    this.isUserProvileEnabled = true;
+  }
+  closeUProfile(){
+    this.isUserProvileEnabled = false;
   }
   isChatEnabled(rid){
     console.log(rid);
@@ -45,24 +58,22 @@ export class DashboardComponent implements OnInit {
 
 isFoundFriend(){
   //console.log(this.srfr);
-  this.http.get('http://localhost/chat/isFoundFriend.php', {
+  this.http.get('http://localhost:3000/Searchyourfriend', {
       params: {
-        srid: this.srfr
-
+        srchkey: this.srfr
       }
     })
         .subscribe(data => {
           this.srfrlst = data;
         },
         err => console.log(err),
-        () => console.log(JSON.stringify(this.srfrlst)));
+        () => console.log());
 }
 
   getUserChats() {
-    this.http.get('http://localhost/chat/getMsgOfUser2.php', {
+    this.http.get('http://localhost:3000/getMsgOfUser', {
       params: {
-        luid: this.lgid,
-
+        uid: this.lgid,
       }
     })
         .subscribe(data => {

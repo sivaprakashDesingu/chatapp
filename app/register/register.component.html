@@ -109,7 +109,7 @@
       <form validate #otpagForm="ngForm" class="logfld rgst">
     <p>If your not received OTP.<span>Please Enter your registered Email id</span></p>
      <mat-form-field>
-    <input #mid="ngModel" matInput placeholder="Registered Mail Id / Userid" [(ngModel)]='rmid' name="rmid" required>
+    <input #mid="ngModel" matInput placeholder="Registered Mail Id " [(ngModel)]='rmid' name="rmid" required>
   </mat-form-field> <div *ngIf="mid.errors && (mid.dirty || mid.touched)" class="alert alert-danger">
       <p class="ermsg mrdow" [hidden]="!mid.errors.required">
         Either user id or  Emamil id Must!
