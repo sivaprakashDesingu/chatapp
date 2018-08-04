@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+@import "variable.scss";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+*{padding:0;margin:0;box-sizing:border-box;font-family: 'Lato', sans-serif,arial;color:#636363;}
+.fl{float:left;display:block;}
+.fr{float:right;display:block;}
+.clr::after{clear:both;display:block;content:"";}
+a{text-decoration:none;}
+li{list-style-type:none;}
+ul,ol{padding:0;margin:0;}
+.mat-button, .mat-fab, .mat-flat-button, .mat-icon-button, .mat-mini-fab, .mat-raised-button, .mat-stroked-button{font-family: 'Spectral', serif;}
+.cmpg{
+    @include bgimages('/assets/images/bg/background.png',cover,no-repeat);
+    min-height:100vh;
+    //background:url("/assets/images/bg/background.png");min-height:100vh;background-repeat:no-repeat;background-size:cover;
+}
+.mat-form-field-appearance-legacy .mat-form-field-label,.mat-form-field.mat-focused .mat-form-field-label,.mat-form-field.mat-form-field-invalid .mat-form-field-label{color:$whitefc;}
+.mat-form-field-appearance-legacy .mat-form-field-underline,.mat-form-field.mat-focused .mat-form-field-ripple,.mat-chip.mat-standard-chip.mat-chip-selected.mat-primary{background-color:$whitefc;}
+.mat-chip.mat-standard-chip.mat-chip-selected.mat-primary{color:$blackfc;}
+.mat-chip.mat-standard-chip.mat-chip-selected.mat-primary{font-size:$fonttl;padding:12px 15px;};
+.mat-form-field.mat-form-field-invalid .mat-form-field-ripple{background-color:$ermsg;}
+.mat-form-field.mat-form-field-invalid .mat-form-field-label .mat-form-field-required-marker,.mat-form-field-invalid .mat-input-element{color:$ermsg;}
+.mat-form-field-invalid .mat-input-element, .mat-warn .mat-input-element,.mat-form-field.mat-form-field-invalid .mat-form-field-label .mat-form-field-required-marker,.mat-form-field.mat-form-field-invalid .mat-form-field-label .mat-form-field-required-marker,.mat-focused .mat-form-field-required-marker {caret-color:$ermsg;color:$ermsg;}
+.mat-input-element{color:$whitefc!important;}
+.mat-chip.mat-standard-chip.mat-chip-selected.mat-primary{transition: all ease .3s;}
+.ermsg{color:$ermsg;}
+.mrdow{margin-bottom:20px; }
+.pro_sc{
+    .mat-form-field-appearance-legacy .mat-form-field-underline, .mat-form-field.mat-focused .mat-form-field-ripple, .mat-chip.mat-standard-chip.mat-chip-selected.mat-primary{background-color:#636363}
+    .mat-form-field-appearance-legacy .mat-form-field-label, .mat-form-field.mat-focused .mat-form-field-label, .mat-form-field.mat-form-field-invalid .mat-form-field-label{color:#636363}
+    .mat-form-field.mat-form-field-invalid .mat-form-field-ripple{background-color:#da1414}
+    .mat-form-field-invalid .mat-input-element, .mat-warn .mat-input-element, .mat-form-field.mat-form-field-invalid .mat-form-field-label .mat-form-field-required-marker, .mat-form-field.mat-form-field-invalid .mat-form-field-label .mat-form-field-required-marker, .mat-focused .mat-form-field-required-marker{caret-color:#da1414;color:#da1414}
+}

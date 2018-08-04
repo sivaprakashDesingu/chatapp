@@ -1,0 +1,12 @@
+$whitefc: #fff;
+$ermsg :#ecff04;
+$blackfc:#000;
+$fonttl:16px;
+
+
+
+/* Function Starts Here */
+@mixin bgimages($img,$size,$rpt){
+background-image:url($img);background-size:$size;background-repeat:$rpt;
+}
+/* Function Starts Here */
