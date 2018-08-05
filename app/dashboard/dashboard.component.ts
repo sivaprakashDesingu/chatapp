@@ -20,8 +20,14 @@ export class DashboardComponent implements OnInit {
   private srfrlst;
   isSearchVisible: boolean;
   isUserProvileEnabled :boolean;
+  isProSett:boolean;
+  isProFfSett:boolean;
+  isProFfPenSett:boolean;
 
-  constructor(private router: Router,private cookie: CookieService,private loc: Location,private http: HttpClient) { }
+  constructor(private router: Router,private cookie: CookieService,private loc: Location,private http: HttpClient) {
+
+    this.isProSett = true;
+   }
   goBack(){
     this.loc.back();
   }
@@ -37,6 +43,26 @@ export class DashboardComponent implements OnInit {
   closeUProfile(){
     this.isUserProvileEnabled = false;
   }
+
+
+  enalbeProSett(){
+    this.isProSett = true;
+    this.isProFfSett = false;
+    this.isProFfPenSett = false;
+  }
+  
+  enalbeFrsSett(){
+    this.isProFfSett = true;
+    this.isProFfPenSett = false;
+    this.isProSett = false;
+  }
+  enalbeFrPenSett(){
+    this.isProFfPenSett = true;
+    this.isProFfSett = false;
+    this.isProSett = false;
+
+  }
+  
   isChatEnabled(rid){
     console.log(rid);
     // this.http.get('http://localhost/chat/whichChatEnabled.php', {
