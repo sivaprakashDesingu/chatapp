@@ -17,7 +17,8 @@
             <li *ngIf="uls.sender!=lgid" (click)="isChatEnabled(uls.sender)" class="clr">
                 <div class="whtust fl">
                     <div class="stwop">
-                        <img class="udp" src="assets/images/icons/user.png" alt="Offline" />
+
+                        <img class="udp" src="http://www.sarvaamexporters.com/{{uls.pro_path}}" alt="Offline" />
                         <!-- <img class="udp" [src]="'data:image/png;base64,' + uls.dpimg.udp" alt="UserDP" /> -->
                         <img class="sts" src="assets/images/icons/success.svg" alt="Offline" />
                     </div>
@@ -40,7 +41,7 @@
             <li *ngIf="uls.receiver!=lgid" (click)="isChatEnabled(uls.receiver)" class="clr">
                 <div class="whtust fl">
                     <div class="stwop">
-                        <img class="udp" src="assets/images/icons/user.png" alt="Offline" />
+                        <img class="udp" src="http://www.sarvaamexporters.com/{{uls.pro_path}}" alt="Offline" />
                         <!-- <img [src]="'data:image/png;base64,' + uls.dpimg.udp" class="udp" alt="UserDP" /> -->
                         <img class="sts" src="assets/images/icons/success.svg" alt="Offline" />
                     </div>
@@ -118,26 +119,41 @@
 <!-- User profile update here-->
 <div [ngClass]="{'open': isUserProvileEnabled }" class="frreq usrpro">
     <div class="usbnr">
-        <div class="cvr">
+        <div class="cvr" [ngStyle]="{'background-image': 'url(' + ucover_path + ')'}">
             <div (click)='closeUProfile()' class="hdr">
                 <img src="assets/images/icons/back.svg" alt="Back">
+
             </div>
             <div class="upr">
-                <img src="/assets/images/user-profile/sp.jpg" alt="userprofile" />
-                <h3>Sivaprakash Desingu</h3>
-                <p>Tamilnadu, Chennai</p>
-
+                <div class="inupr">
+                    <img src="{{upro_path}}" alt="userprofile" />
+                    <input #uproupload type="file" (click)="uproupload.value = null" (change)="userProfileChange($event,'profile')" style="display:none" accept="image/*">
+                    <a (click)="uproupload.click()" class="uppr" href="javascript:void(0);">
+                        Edit <i class="fas fa-pencil-alt"></i>
+                    </a>
+                    
+                    
+                </div>
+                <h3>{{lguser}}</h3>
+                <p>{{uloc}}</p>
+            </div>
+            <div class="edico">
+                    <!-- <input class="id="cin" name="cin" type="file" placeholder="Upload a file..." multiple/> -->
+                    <input #ucvrupload type="file" (click)="ucvrupload.value = null" (change)="userProfileChange($event,'cover')" style="display:none" accept="image/*">
+                    <a (click)="ucvrupload.click()" class="uppr" href="javascript:void(0);">
+                        Edit <i class="fas fa-pencil-alt"></i>
+                    </a>
             </div>
         </div>
         <ul class="uchos">
-            <li (click)= 'enalbeProSett()'>
+            <li (click)='enalbeProSett()'>
                 <div class="tabicon">
                     <i class="fas fa-user"></i>
                 </div>
 
                 <p>Profile</p>
             </li>
-            <li (click)= 'enalbeFrsSett()'>
+            <li (click)='enalbeFrsSett()'>
 
                 <div class="tabicon">
                     <i class="fas fa-user-friends"></i>
@@ -145,7 +161,7 @@
 
                 <p>Friends</p>
             </li>
-            <li (click)= 'enalbeFrPenSett()'>
+            <li (click)='enalbeFrPenSett()'>
                 <div class="tabicon">
                     <i class="fas fa-edit"></i>
                 </div>
@@ -153,22 +169,84 @@
             </li>
         </ul>
 
-        <div  [ngClass]="{'show': isProSett }" id="prosec" class="pro_sc ">
+        <div [ngClass]="{'show': isProSett }" id="prosec" class="pro_sc ">
             <form>
-                <mat-form-field>
-                    <input #fn="ngModel" matInput placeholder="Full Name" [(ngModel)]='flnam' name="flnam" required>
-                </mat-form-field>
+
 
                 <mat-form-field>
-                    <input #emai="ngModel" matInput placeholder="Email id" [(ngModel)]='eid' name="eid" required>
+                    <input #ngui="ngModel" matInput placeholder="Unique id" [(ngModel)]='lgid' name="lgid" [readonly]="true">
                 </mat-form-field>
-                <mat-form-field>
-                    <input #mobn="ngModel" matInput placeholder="Mobile Nmber" [(ngModel)]='mn' name="mn" required>
-                </mat-form-field>
+
+                <div class="stfld">
+                    <mat-form-field>
+                        <input id='flrm' #fn="ngModel" matInput placeholder="Full Name" [(ngModel)]='lguser' name="lguser" required readonly>
+                    </mat-form-field>
+                    <span (click)="addrmclass('sda','eda','flrm','yes')" id="eda" class="upda show">
+                        <i class="fas fa-pencil-alt"></i>
+                    </span>
+                    <span id="sda" class="upda ">
+                        <i (click)="CancelUpdateDataOfUser('uname','eda','sda','flrm','no')" class="fas fa-times"></i>
+                        <i (click)="updateDataOfUser('uname','eda','sda','flrm','no')" class="fas fa-check"></i>
+                    </span>
+
+                </div>
+                <div class="stfld">
+                    <mat-form-field>
+                        <input id="emrm" #emai="ngModel" matInput placeholder="Email id" [(ngModel)]='uemail' name="uemail" required readonly>
+                    </mat-form-field>
+                    <span (click)="addrmclass('sda1','eda1','emrm','yes')" id="eda1" class="upda show">
+                        <i class="fas fa-pencil-alt"></i>
+                    </span>
+                    <span id="sda1" class="upda ">
+                        <i (click)="CancelUpdateDataOfUser('email','eda1','sda1','emrm','no')" class="fas fa-times"></i>
+                        <i (click)="updateDataOfUser('email','eda1','sda1','emrm','no')" class="fas fa-check"></i>
+                    </span>
+
+                </div>
+                <div class="stfld">
+                    <mat-form-field>
+                        <input id="morm" #mobn="ngModel" matInput placeholder="Mobile Nmber" [(ngModel)]='phn' name="phn" required readonly>
+                    </mat-form-field>
+                    <span (click)="addrmclass('sda2','eda2','morm','yes')" id="eda2" class="upda show">
+                        <i class="fas fa-pencil-alt"></i>
+                    </span>
+                    <span id="sda2" class="upda ">
+                        <i (click)="CancelUpdateDataOfUser('phone','eda2','sda2','morm','no')" class="fas fa-times"></i>
+                        <i (click)="updateDataOfUser('phone','eda2','sda2','morm','no')" class="fas fa-check"></i>
+                    </span>
+
+                </div>
+                <div class="stfld">
+                    <mat-form-field class="example-full-width">
+                        <textarea id="adrm" matInput placeholder="Status" [(ngModel)]='status' name="status" readonly></textarea>
+                    </mat-form-field>
+                    <span (click)="addrmclass('sda3','eda3','adrm','yes')" id="eda3" class="upda show">
+                        <i class="fas fa-pencil-alt"></i>
+                    </span>
+                    <span id="sda3" class="upda ">
+                        <i (click)="CancelUpdateDataOfUser('status','eda3','sda3','adrm','no')" class="fas fa-times"></i>
+                        <i (click)="updateDataOfUser('status','eda3','sda3','adrm','no')" class="fas fa-check"></i>
+                    </span>
+
+                </div>
+                <div class="stfld">
+                    <mat-form-field>
+                        <input id="lorm" #ngloc="ngModel" matInput placeholder="Location" [(ngModel)]='uloc' name="uloc" required readonly>
+                    </mat-form-field>
+                    <span (click)="addrmclass('sda4','eda4','lorm','yes')" id="eda4" class="upda show">
+                        <i class="fas fa-pencil-alt"></i>
+                    </span>
+                    <span id="sda4" class="upda ">
+                        <i (click)="CancelUpdateDataOfUser('location','eda4','sda4','lorm','no')" class="fas fa-times"></i>
+                        <i (click)="updateDataOfUser('location','eda4','sda4','lorm','no')" class="fas fa-check"></i>
+                    </span>
+
+                </div>
+
 
             </form>
         </div>
-        <div [ngClass]="{'show': isProFfSett }"  id="frlst" class="pro_sc frl ">
+        <div [ngClass]="{'show': isProFfSett }" id="frlst" class="pro_sc frl ">
             <ul>
 
                 <li class="frech clr">
@@ -179,7 +257,7 @@
                         <p>Sivaprakash Desingu</p>
                         <p>Chennai, Tamilnadu</p>
                     </div>
-                    
+
 
                 </li>
                 <li class="frech clr">
@@ -190,7 +268,7 @@
                         <p>Sivaprakash Desingu</p>
                         <p>Chennai, Tamilnadu</p>
                     </div>
-                    
+
 
                 </li>
             </ul>

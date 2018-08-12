@@ -19,51 +19,155 @@ export class DashboardComponent implements OnInit {
   private srfr;     //variable for global search
   private srfrlst;
   isSearchVisible: boolean;
-  isUserProvileEnabled :boolean;
-  isProSett:boolean;
-  isProFfSett:boolean;
-  isProFfPenSett:boolean;
+  isUserProvileEnabled: boolean;
+  isProSett: boolean;
+  isProFfSett: boolean;
+  isProFfPenSett: boolean;
 
-  constructor(private router: Router,private cookie: CookieService,private loc: Location,private http: HttpClient) {
+  /* user profile variable */
+  private uemail;
+  private uloc;
+  private status;
+  private phn;
+  private upro_path;
+  private ucover_path;
+
+
+  private postData = {};
+  constructor(private router: Router, private cookie: CookieService, private loc: Location, private http: HttpClient) {
 
     this.isProSett = true;
-   }
-  goBack(){
+  }
+  goBack() {
     this.loc.back();
   }
-  enableSearchFun(){
+  enableSearchFun() {
     this.isSearchVisible = true;
   }
-  closeSearchFun(){
+  closeSearchFun() {
     this.isSearchVisible = false;
   }
-  enableUProfile(){
-    this.isUserProvileEnabled = true;
+  addrmclass(adc, rmc, whrm, st) {
+    document.getElementById(adc).classList.add('show');
+    document.getElementById(rmc).classList.remove('show');
+    if (st == "yes")
+      document.getElementById(whrm).removeAttribute("readonly");
+    else
+      document.getElementById(whrm).setAttribute("readonly", "readonly");
   }
-  closeUProfile(){
+
+  CancelUpdateDataOfUser(uAttr, adc, rmc, id, st) {
+    this.enableUProfile();
+    this.lguser = this.cookie.get('luname');
+    this.addrmclass(adc, rmc, id, st);
+  }
+  updateDataOfUser(uAttr, adc, rmc, id, st) {
+    console.log(uAttr);
+    if (uAttr == "uname")
+      this.postData = { 'attr': uAttr, 'uid': this.lgid, 'toBeUpdated': this.lguser }
+    else if (uAttr == "email")
+      this.postData = { 'attr': uAttr, 'uid': this.lgid, 'toBeUpdated': this.uemail }
+    else if (uAttr == "phone")
+      this.postData = { 'attr': uAttr, 'uid': this.lgid, 'toBeUpdated': this.phn }
+    else if (uAttr == "status")
+      this.postData = { 'attr': uAttr, 'uid': this.lgid, 'toBeUpdated': this.status }
+    else if (uAttr == "location")
+      this.postData = { 'attr': uAttr, 'uid': this.lgid, 'toBeUpdated': this.uloc }
+
+    this.http.post('http://localhost:3000/updateDataOfUser', this.postData)
+      .subscribe(data => {
+        if (data == 1) {
+          this.addrmclass(adc, rmc, id, st);
+          console.log(data);
+          if (uAttr == "uname") {
+            this.cookie.set('luname', this.lguser);
+            this.lguser = this.cookie.get('luname');
+          }
+
+          // document.getElementById("otpopen").classList.add("open");
+        } else if (data == 'ER_DUP_ENTRY') {
+          console.log("else" + data);
+        }
+
+      },
+        err => console.log(err),
+        () => console.log());
+  }
+  enableUProfile() {
+    this.isUserProvileEnabled = true;
+    this.http.get('http://localhost:3000/userProfileDetails', {
+      params: {
+        uid: this.lgid,
+
+      }
+    })
+      .subscribe(data => {
+        //this.userchats = data;
+        this.uemail = data[0].email;
+        this.phn = data[0].phone;
+        this.status = data[0].status;
+        this.uloc = data[0].location;
+        this.upro_path = "http://www.sarvaamexporters.com/" + data[0].pro_path;
+        this.ucover_path = "http://www.sarvaamexporters.com/" + data[0].cover_path;
+
+      },
+        err => console.log(err),
+        () => console.log());
+
+
+  }
+  closeUProfile() {
     this.isUserProvileEnabled = false;
   }
 
 
-  enalbeProSett(){
+  enalbeProSett() {
     this.isProSett = true;
     this.isProFfSett = false;
     this.isProFfPenSett = false;
   }
-  
-  enalbeFrsSett(){
+
+  enalbeFrsSett() {
     this.isProFfSett = true;
     this.isProFfPenSett = false;
     this.isProSett = false;
   }
-  enalbeFrPenSett(){
+  enalbeFrPenSett() {
     this.isProFfPenSett = true;
     this.isProFfSett = false;
     this.isProSett = false;
 
   }
-  
-  isChatEnabled(rid){
+
+
+  userProfileChange(event, whi) {
+    const formData: any = new FormData();
+    const files: Array<File> = event.target.files[0];
+    var imgtype = event.target.files[0].type;
+    imgtype = imgtype.split("/");
+    if (whi == "profile") {
+      formData.append("uploads[]", files, this.lgid + "_profile." + imgtype[1]);
+      
+      this.http.post('http://localhost:3000/userProImageUpdate', formData)
+      .subscribe(files => {
+        //console.log('files', files);
+        this.enableUProfile();
+      })
+    } else {
+      formData.append("uploads[]", files, this.lgid + "_cover." + imgtype[1]);
+     
+      this.http.post('http://localhost:3000/userProImageUpdate', formData)
+        .subscribe(files => {
+          //console.log('files', files);
+          this.enableUProfile();
+        })
+    }
+
+
+  }
+
+
+  isChatEnabled(rid) {
     console.log(rid);
     // this.http.get('http://localhost/chat/whichChatEnabled.php', {
     //   params: {
@@ -79,22 +183,22 @@ export class DashboardComponent implements OnInit {
 
 
 
-     this.router.navigate(['/dash/chat/',rid]);
+    this.router.navigate(['/dash/chat/', rid]);
   }
 
-isFoundFriend(){
-  //console.log(this.srfr);
-  this.http.get('http://localhost:3000/Searchyourfriend', {
+  isFoundFriend() {
+    //console.log(this.srfr);
+    this.http.get('http://localhost:3000/Searchyourfriend', {
       params: {
         srchkey: this.srfr
       }
     })
-        .subscribe(data => {
-          this.srfrlst = data;
-        },
+      .subscribe(data => {
+        this.srfrlst = data;
+      },
         err => console.log(err),
         () => console.log());
-}
+  }
 
   getUserChats() {
     this.http.get('http://localhost:3000/getMsgOfUser', {
@@ -102,9 +206,9 @@ isFoundFriend(){
         uid: this.lgid,
       }
     })
-        .subscribe(data => {
-          this.userchats = data;
-        },
+      .subscribe(data => {
+        this.userchats = data;
+      },
         err => console.log(err),
         () => console.log(this.userchats));
   }
