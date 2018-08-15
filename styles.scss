@@ -26,6 +26,7 @@ ul,ol{padding:0;margin:0;}
 .ermsg{color:$ermsg;}
 .mrdow{margin-bottom:20px; }
 .pro_sc{
+    .mat-input-element{color:#636363!important;}
     .mat-form-field-appearance-legacy .mat-form-field-underline, .mat-form-field.mat-focused .mat-form-field-ripple, .mat-chip.mat-standard-chip.mat-chip-selected.mat-primary{background-color:#636363}
     .mat-form-field-appearance-legacy .mat-form-field-label, .mat-form-field.mat-focused .mat-form-field-label, .mat-form-field.mat-form-field-invalid .mat-form-field-label{color:#636363}
     .mat-form-field.mat-form-field-invalid .mat-form-field-ripple{background-color:#da1414}
