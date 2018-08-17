@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { CookieService } from 'ngx-cookie-service';
-
+import * as io from 'socket.io-client';
 
 @Component({
   selector: 'app-notfound',
@@ -28,8 +28,8 @@ export class NotfoundComponent implements OnInit {
       this.http.post('http://localhost:3000/upload', formData)
         //.map(files => files.json())
         .subscribe(files => console.log('files', files))
-    }else{
-       console.log("Please select an Image file...")
+    } else {
+      console.log("Please select an Image file...")
     }
   }
 
@@ -52,9 +52,94 @@ export class NotfoundComponent implements OnInit {
   //   }
   //   //console.log(this.localUrl);
   // }
-  constructor(private http: HttpClient) { }
+  messageText: string;
+  messages: Array<any>;
+  socket: SocketIOClient.Socket;
+  private url = 'http://localhost:800';
 
-  ngOnInit() {
+  constructor(private http: HttpClient) {
+    //this.socket = io.connect(this.url);
+    this.socket = io.connect('http://localhost:8000');
   }
+
+  SendToServer(val,name) {
+    console.log(val);
+    this.messages = new Array();
+    //this.socket.id = "someId";
+    //this.socket.join(123);
+    //console.log(this.ChatRoomData.id)
+    console.log(this.socket.id);
+    // this.socket.on('message-received', (msg: any) => {
+    //   this.messages.push(msg);
+    //   console.log(msg);
+    //   console.log(this.messages);
+    // });
+     
+     this.socket.emit('message',{
+	        toid :this.socket.id ,
+	    		msg : val,
+	    		name : name
+	        });
+    this.socket.on('message2', (data: any) => {
+      //console.log(this.socket.id);
+      console.log(data.msg);
+      //data.msg = '';
+    }); 
+    
+  //  this.socket.on('message2', (data: any) => {
+  //     console.log(data.msg);
+  //     this.socket.emit('message3', {
+  //       msg: 'Yes, its working for me!!'
+  //     });
+  //   });
+  //   this.socket.on('message4', (data: any) => {
+  //     console.log(data.msg);
+  //   });
+
+
+
+    // this.socket.emit('event1', {
+    //   msg: 'Client to server, can you hear me server?'
+    // });
+
+    // this.socket.on('event2', (data: any) => {
+    //   console.log(data.msg);
+    //   this.socket.emit('event3', {
+    //     msg: 'Yes, its working for me!!'
+    //   });
+    // });
+    // this.socket.on('event4', (data: any) => {
+    //   console.log(data.msg);
+    // });
+
+  }
+  ngOnInit() {
+    console.log(this.socket.id);
+    //this.SendToServer();
+
+    // this.socket.emit('event1', {
+    //   msg: 'Client to server, can you hear me server?'
+    // });
+
+    // this.socket.on('event2', (data: any) => {
+    //   console.log(data.msg);
+    //   this.socket.emit('event3', {
+    //     msg: 'Yes, its working for me!!'
+    //   });
+    // });
+    // this.socket.on('event4', (data: any) => {
+    //   console.log(data.msg);
+    // });
+
+  }
+
+  // sendMessage() {
+  //   const message = {
+  //     text: this.messageText
+  //   };
+  //   this.socket.emit('send-message', message);
+  //   // console.log(message.text);
+  //   this.messageText = '';
+  // }
 
 }
