@@ -15,6 +15,7 @@ import { Router } from "@angular/router";
 export class DashboardComponent implements OnInit {
   private lgid;
   private lguser;
+  private lupic;
   private userchats;
   private srfr;     //variable for global search
   private srfrlst;
@@ -188,7 +189,8 @@ export class DashboardComponent implements OnInit {
 
   isFoundFriend() {
     //console.log(this.srfr);
-    this.http.get('http://localhost:3000/Searchyourfriend', {
+    //this.http.get('http://localhost:3000/Searchyourfriend', {
+    this.http.get('http://localhost:3000/SearchPeoples', {
       params: {
         srchkey: this.srfr
       }
@@ -197,7 +199,7 @@ export class DashboardComponent implements OnInit {
         this.srfrlst = data;
       },
         err => console.log(err),
-        () => console.log());
+        () => console.log(this.srfrlst));
   }
 
   getUserChats() {
@@ -212,10 +214,23 @@ export class DashboardComponent implements OnInit {
         err => console.log(err),
         () => console.log(this.userchats));
   }
+  getUserProfilePic(){
+    this.http.get('http://localhost:3000/getUserProfilePic', {
+      params: {
+        uid: this.lgid,
+      }
+    })
+      .subscribe(data => {
+        this.lupic = "http://www.sarvaamexporters.com/" + data[0].pro_path;
+      },
+        err => console.log(err),
+        () => console.log());
+  }
   ngOnInit() {
     this.lgid = this.cookie.get('luser');
     this.lguser = this.cookie.get('luname');
     this.getUserChats();
+    this.getUserProfilePic();
   }
 
 }

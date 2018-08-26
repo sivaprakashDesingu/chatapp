@@ -15,9 +15,16 @@
         }
         .ttl{width:70%;text-align:center;color:$whitefc;font-size:18px;padding:8px 0;}
         .upro{
-            width:12%;
+            width: 41px;
             border-radius: 50%;
-            img{width:100%;height:100%;display:block;margin-top:3px;}
+            position: relative;
+            height: 41px;
+            img{
+                width: 100%;
+                height: 100%;
+                display: block;
+                border-radius:50%;
+            }
         }
     }
     .chathst{
@@ -42,7 +49,7 @@
                     p{margin:5px 0  0;}
                 }
             }
-            .tims{width:16%;font-size:12px;color:#aba3a3;}
+            .tims{width:17%;font-size:12px;color:#aba3a3;}
         }
     }
 }
@@ -62,6 +69,7 @@
     .frstch{min-height:30px;padding:20px 15px 0;}
     .mat-form-field{width:100%;font-family: 'Spectral', serif;}
     .srcht{
+        h2{border-bottom: 1px solid #dcdcdc;font-size: 20px;padding: 5px 15px;}
         height:calc(100vh - 87px);color:#636363;text-align:left;overflow:auto;
         ul{
             li{
@@ -73,12 +81,12 @@
                     .suicn{
                         position: absolute;top: 50%;left: 20px;transform: translate(-50%,-50%);
                         width:40px;height:40px;border-radius:50%;
-                        img{width:100%;height:100%;display:block;}
+                        img{width:100%;height:100%;display:block;border-radius:50%;}
                     }
                     .sudet{
                         width:calc(100% - 45px);
                     }
-                    .frbn{float:right;width: 100%;margin: 15px 0 0;text-align:right;
+                    .frbn{float:right;width: 100%;margin: 10px 0 0;text-align:right;
                         mat-chip-list{width: 50%;display:inline-block;padding-right: 16px;
                             .mat-chip.mat-standard-chip.mat-chip-selected.mat-primary{
                                 padding:6px 10px;text-align:center;display: block;margin:0;min-height:5px;

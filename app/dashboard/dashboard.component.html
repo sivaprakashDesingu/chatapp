@@ -9,7 +9,7 @@
             {{lguser}}
         </div>
         <div (click)="enableUProfile()" class="upro fr">
-            <img src="assets/images/icons/user.png" alt="user icon">
+            <img src="{{lupic}}" alt="user icon">
         </div>
     </header>
     <div class="chathst clr" *ngFor="let uls of userchats">
@@ -84,9 +84,10 @@
     <div class="srcht clr">
         <ul class="filter">
             <li class="sritme" *ngFor="let slst of srfrlst">
+                <!-- <h2>Find you friend here.</h2> -->
                 <div class="srin clr">
                     <div class=" suicn">
-                        <img src="assets/images/icons/user.svg" alt="un">
+                        <img src="http://www.sarvaamexporters.com/{{slst.pro_path}}"  alt="un">
                     </div>
                     <div class="fr sudet">
                         <p>{{slst.email}}</p>
