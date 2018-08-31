@@ -120,12 +120,12 @@
           <li *ngIf="chts.sender==lgid" class="fu fl">{{chts.message}}</li>
           <li *ngIf="chts.sender!=lgid" class="fd fr">{{chts.message}}</li>
         </ul> -->
-        <ul id="chul" >
+        <ul id="chul" class="chpr">
 
             <li  class="clr" *ngFor="let chts of allChats" >
               
-            <p *ngIf="chts.sender==lgid" class="fu fl" > {{chts.message}} </p>  
-            <p *ngIf="chts.sender==lgid" class="fd fr" > {{chts.message}} </p>  
+            <p  *ngIf="chts.sender!=lgid" class="fu fl" > {{chts.message}} </p>  
+            <p  *ngIf="chts.sender==lgid" class="fd fr" > {{chts.message}} </p>  
             
             </li>
             <!-- <li *ngIf="chts.sender!=lgid" class="fd fr">{{chts.message}}</li> -->

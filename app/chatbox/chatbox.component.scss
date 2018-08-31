@@ -193,50 +193,16 @@
         }
     }
     .chrwrp{
-    padding:68px 0 0;
-    .timestamp{width:100%;text-align:center;color:#ccc;background: #f1bc9936;
-    p{margin:0;}
-    }
-    .chtlst{
-        background: #f1bc9936;
-        min-height: 100vh;
-        padding:30px 25px 0;
-        
-        
-        li {
-            .fd{
-        
-                &:after{
-                    margin-left: 98%;
-                    transform:rotate(-90deg);
-       
-                }
-               }
-            p{
-                &:after{
-                    content: '';
-                    position: absolute;
-                    left: 0;
-                    top: 50%;
-                    width: 0;
-                    height: 0;
-                    border: 25px solid transparent;
-                    border-right-color: #f1bd99;
-                    border-left: 0;
-                    border-top: 0;
-                    margin-top: -10px;
-                    margin-left: -17px;
-                }
-                position: relative;
-                background: #f1bd99;
-                border-radius: .4em;
-                padding:10px;width:75%;
-                margin:0 0 10px;
-            }
+        padding:68px 0 0;
+        .timestamp{
+            width:100%;text-align:center;color:#ccc;background: #f1bc9936;
+            p{margin:0;}
         }
-        
-        
-    }
+        .chtlst{
+            background: #f1bc9936;
+            min-height: 100vh;
+            padding:30px 25px 0;  
+        }
     }
 .ftrtext{position:fixed;bottom:0;width:100%;min-height:auto;padding:0 15px; box-shadow: 0 -2px 3px #c37343;
 .msgbox{position:relative;
@@ -249,7 +215,32 @@ input{width:85%;}
 }
     
 }
-
+.fu,.fd{
+    position: relative;
+    background: #f1bd99;
+    border-radius: .4em;
+    padding:10px;width:75%;
+    margin:0 0 10px;
+}
+.fu::after,.fd::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 25px solid transparent;
+    border-right-color: #f1bd99;
+    border-left: 0;
+    border-top: 0;
+    margin-top: -10px;
+    margin-left: -17px;
+}
+.fd::after{
+    margin-left: 98%;
+    transform:rotate(-90deg);
+}
+            
 // .card-container:not(.manual-flip):hover .card{
 //     -moz-transform: rotateY( 180deg );
 //     -o-transform: rotateY( 180deg );
