@@ -26,6 +26,7 @@ export class ChatboxComponent implements OnInit {
   private usocket;
   socket: SocketIOClient.Socket;
   private postData = {};
+  private seeUserDataArray;
   constructor(private activeRoute: ActivatedRoute, private loc: Location, private http: HttpClient, private cookie: CookieService, ) {
 
     this.socket = io.connect('http://localhost:3000');
@@ -48,7 +49,7 @@ export class ChatboxComponent implements OnInit {
 
   isMessageSent() {
     //this.socket.emit('sendMessage', {"msg":this.umsg,"to":this.uniChatId});
-    this.socket.emit('sendMessage', { "msg": this.umsg, "to": this.uniChatId, "by": this.lgid});
+    this.socket.emit('sendMessage', { "msg": this.umsg, "to": this.uniChatId, "by": this.lgid,'rec':this.rcid,'time': this.formatAMPM()});
     console.log(this.umsg+"..."+this.rcid);
 
    
@@ -89,13 +90,30 @@ export class ChatboxComponent implements OnInit {
   openMoreOptions() {
     document.getElementById("mrdplst").classList.toggle("expand");
   }
-  openUserPro() {
+  openUserPro(a) {
     document.getElementById("othupro").classList.toggle("show");
+    document.getElementById("mrdplst").classList.toggle("expand");
+    if(a=="open"){
+      document.getElementById("msbox").classList.toggle("ftrtext");
+      
+      this.postData = {'whu':this.rcid};
+      this.http.post('http://localhost:3000/userProfileDetails', this.postData)
+      .subscribe(data => {
+       this.seeUserDataArray = data;
+       console.log(this.seeUserDataArray);
+      },
+      err => console.log(err),
+      () => console.log());
+    }else if(a=="close"){
+      document.getElementById("mrdplst").classList.toggle("expand");
+      document.getElementById("msbox").classList.toggle("ftrtext");
+    }
+
   }
-  rotateCard() {
-    document.getElementById("rtcrd").classList.toggle("rotate");
-  }
-  getCooky() {
+  // rotateCard() {
+  //   document.getElementById("rtcrd").classList.toggle("rotate");
+  // }
+  getCooky(){
     return this.cookie.get('luser');
   }
   private handleMessageReceivedEvent(data): void {
@@ -112,12 +130,9 @@ export class ChatboxComponent implements OnInit {
     this.postData = { 'uid': this.lgid }
     this.http.post('http://localhost:3000/toSetRoom', this.postData)
       .subscribe(data => {
-        //console.log(data[0]);
-       // urmsl = data;
        for(var i =0;i<Object.keys(data).length;i++){
           this.socket.emit('joinRoom', { "sid": data[i].chatid });
        }
-        //console.log(Object.keys(data).length)
       },
       err => console.log(err),
       () => console.log());
@@ -125,15 +140,12 @@ export class ChatboxComponent implements OnInit {
   }
     
   ngOnInit() {
-
     this.lgid = this.cookie.get('luser');
     this.rcid = this.activeRoute.snapshot.params.rid;
     this.GetOneComunicationChatHis();
     this.joinRoom();
     //this.socket.emit('joinRoom', { "sid": '123' });
     this.socket.on("msgReceived", this.handleMessageReceivedEvent.bind(this));
-
-    
   }
 
 }

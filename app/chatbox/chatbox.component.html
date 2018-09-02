@@ -13,7 +13,7 @@
       <div id="mrdplst" class="mrdrp">
         <ul>
           <li>
-            <a (click)='openUserPro()' href="javascript:void(0);">
+            <a (click)="openUserPro('open')" href="javascript:void(0);">
               View profile
             </a>
           </li>
@@ -30,73 +30,47 @@
         <div class="usrd">
           <div class="card-container">
             <div id="rtcrd" class="card">
-              <div class="front">
-                <div class="cover">
-                  <img src="http://www.sarvaamexporters.com/chat_app/uploads/user-profile/siva1_cover.jpeg">
-                </div>
-                <div class="user">
-                  <img class="img-circle" src="http://www.sarvaamexporters.com/chat_app/uploads/user-profile/siva1_profile.jpeg">
-                </div>
-                <div class="content">
-                  <div class="main">
-                    <h3 class="name">Sivaprakash</h3>
-                    <p class="profession">CEO</p>
-                    <p class="text-center">"I'm the new Sinatra, and since I made it here I can make it anywhere, yeah, they love me everywhere"</p>
-                  </div>
-                  <div  class="footer">
-                    <a hre="javascript:void(0)" (click)="rotateCard()">
-                     <i class="fas fa-reply"></i> More</a>
-                  </div>
-                </div>
-              </div>
-              <!-- end front panel -->
-              <div class="back">
-                <div class="header">
-                  <h5 class="motto">"To be or not to be, this is my awesome motto!"</h5>
-                </div>
-                <div class="content">
-                  <div class="main">
-                    <h4 class="text-center">Job Description</h4>
-                    <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and many others...</p>
 
-                    <div class="stats-container">
-                      <div class="stats">
-                        <h4>235</h4>
-                        <p>
-                          Followers
-                        </p>
-                      </div>
-                      <div class="stats">
-                        <h4>114</h4>
-                        <p>
-                          Following
-                        </p>
-                      </div>
-                      <div class="stats">
-                        <h4>35</h4>
-                        <p>
-                          Projects
-                        </p>
-                      </div>
+
+
+              <div class="front" *ngFor="let uda of seeUserDataArray">
+                
+                <div class="cover" [ngStyle]="{'background-image': 'url(http://www.sarvaamexporters.com/' + uda.cover_path + ')'}">
+                  <span (click)="openUserPro('close')" class="hdr">
+                      <img src="assets/images/icons/back.svg" alt="Back">
+      
+                  </span> 
+                  
+                  <span class="img" [ngStyle]="{'background-image': 'url(http://www.sarvaamexporters.com/' + uda.pro_path + ')'}">
+                    </span>
+                  </div>
+
+                <div class="content ">
+                  <div class="frpg">
+                    <div class="main">
+                      <h3 class="name">{{uda.uname}}</h3>
+                      <p class="lving">{{uda.location}}</p>
+                      <p class="abtust">{{uda.status}}</p>
                     </div>
+                  </div>
+                  <!-- <div class="bkpg">
+                      <div class="main">
+                          <h3 class="name">Sivaprakash</h3>
+                          <p class="lving">CEO</p>
+                          <p class="abtust">"I'm the new Sinatra, and since I made it here I can make it anywhere, yeah, they love me everywhere"</p>
+                        </div>
+                  </div> -->
 
-                  </div>
+                  <!-- <div  class="footer">
+                      <a hre="javascript:void(0)" (click)="rotateCard()">
+                          <i class="fas fa-hand-point-right"></i>Know More</a>
+                    </div> -->
+
                 </div>
-                <div class="footer">
-                  <div class="social-links text-center">
-                    <a href="https://creative-tim.com" class="facebook">
-                      <i class="fab fa-facebook-f "></i>
-                    </a>
-                    <a href="https://creative-tim.com" class="google">
-                      <i class="fab fa-google-plus-g "></i>
-                    </a>
-                    <a href="https://creative-tim.com" class="twitter">
-                      <i class="fab fa-twitter "></i>
-                    </a>
-                  </div>
-                </div>
+
+
               </div>
-              <!-- end back panel -->
+
             </div>
             <!-- end card -->
           </div>
@@ -122,21 +96,21 @@
         </ul> -->
         <ul id="chul" class="chpr">
 
-            <li  class="clr" *ngFor="let chts of allChats" >
-              
-            <p  *ngIf="chts.sender!=lgid" class="fu fl" > {{chts.message}} </p>  
-            <p  *ngIf="chts.sender==lgid" class="fd fr" > {{chts.message}} </p>  
-            
-            </li>
-            <!-- <li *ngIf="chts.sender!=lgid" class="fd fr">{{chts.message}}</li> -->
-          </ul>
+          <li class="clr" *ngFor="let chts of allChats">
+
+            <p *ngIf="chts.sender!=lgid" class="fu fl"> {{chts.message}} </p>
+            <p *ngIf="chts.sender==lgid" class="fd fr"> {{chts.message}} </p>
+
+          </li>
+          <!-- <li *ngIf="chts.sender!=lgid" class="fd fr">{{chts.message}}</li> -->
+        </ul>
 
 
       </div>
     </div>
   </div>
 
-  <div class="cmpg ftrtext">
+  <div id="msbox" class="cmpg ftrtext">
     <div class="msgbox">
       <mat-form-field>
         <input #chatid="ngModel" [(ngModel)]='umsg' name="umsg" required matInput placeholder="Type your message here.....">

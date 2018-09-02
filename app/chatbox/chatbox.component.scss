@@ -7,179 +7,121 @@
         .more{position: relative; 
             
             .mrdrp{
-                &.expand{display:block;}
-                display:none;
-                position: absolute;
-                right:-10px;
-                top:23px;
-                min-width: 150px;
+                &.expand{
+                    transform: translateY(0%);
+                    max-height: 200px;
+                    overflow: auto;
+                    transition: all 0.2s ease;
+                }
+                right: -10px;
+                top: -20px;
+                min-width: 160px;
                 background: #fff;
-                border-radius:3px;
+                border-radius: 3px;
+                overflow: hidden;
+                max-height: 0;
+                line-height:27px;
+                position: absolute;
+                -webkit-transform: translateY(-50%);
+                transform: translateY(-50%);
+                transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24) !important;
                 li{
                     a{display:block;padding:9px 10px;border-bottom:1px solid #f1f1f1;}
                 }
             }
             .vwourpr{
                 position:fixed;left:-100%;top:0;width:100%;
-                min-height:100vh;background:#e4e4e4;transition:.5s left ease;
+                min-height:100vh;background:#fff;transition:.5s left ease;
                 &.show{
                     left:0;
                 }
                 .card-container{
                     width: 100%;
-                    height: 420px;
+                    height:100%;
                     border-radius: 4px;
                     -webkit-perspective: 800px;
                     -moz-perspective: 800px;
                     -o-perspective: 800px;
                     perspective: 800px;
-                    margin-bottom: 30px;
+                    
                     .card{
                         &.rotate{
-                            -moz-transform: rotateY( 180deg );
-                            -o-transform: rotateY( 180deg );
-                            transform: rotateY( 180deg );
+                            .content{
+                                .frpg{left:-100%!important;}
+                                .bkpg{left:0!important;}
+                            }
                         }
                         background: none repeat scroll 0 0 #FFFFFF;
                         border-radius: 4px;
-                        color: #444444;
-                        -webkit-transition: -webkit-transform .5s;
-                        -moz-transition: -moz-transform .5s;
-                        -o-transition: -o-transform .5s;
-                        transition: transform .5s;
-                        -webkit-transform-style: preserve-3d;
-                        -moz-transform-style: preserve-3d;
-                        -o-transform-style: preserve-3d;
-                        transform-style: preserve-3d;
+                        color: #636363;
                         position: relative;
-                        .front, .back{
-                            -webkit-backface-visibility: hidden;
-                            -moz-backface-visibility: hidden;
-                            -o-backface-visibility: hidden;
-                                backface-visibility: hidden;
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            background-color: #FFF;
-                            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.14);
-                        }
+                        transition:all ease .5s;
                         .front{
-                            width: 100%;
-                            height: 420px;
                             border-radius: 4px;
-                            z-index:2;
+                            z-index:2;  
+                            height:100vh;
                             .cover{
-                                height: 105px;
-                                overflow: hidden;
+
+                                height: 200px;
                                 border-radius: 4px 4px 0 0;
-                            }
-                            .user{
-                                border-radius: 50%;
-                                display: block;
-                                height: 120px;
-                                margin: -55px auto 0;
-                                overflow: hidden;
-                                width: 120px;
-                                img{
-                                    background: none repeat scroll 0 0 #FFFFFF;
-                                    border: 4px solid #FFFFFF;
-                                    width: 100%;
+                                background-size: cover;
+                                position: relative;
+                                .hdr{position: absolute;
+                                    width:35px;
+                                    height:50px;
+                                    left:5px;
+                                    top:5px;}
+                                .img{
+                                    background-size: cover;
+                                    position: absolute;
+                                    bottom: -60px;
+                                    width: 120px;
+                                    height: 120px;
+                                    display: block;
                                     border-radius: 50%;
-                                    height:100%;
+                                    left: 50%;
+                                    transform: translateX(-50%);
+                                    background-size: cover;
                                 }
                             }
+                            
                             .content{
-                                background-color: rgba(0, 0, 0, 0);
-                                box-shadow: none;
-                                padding: 10px 20px 20px;
-                                .main{
-                                    min-height: 160px;
+                                margin-top:55px;
+                                overflow: scroll;
+                                height: calc(100% - 293px);
+                                //position: relative;
+                                .frpg,.bkpg{
+                                   // position: absolute;
+                                    width:100%;
+                                    padding:20px;
+                                    transition:ease all .5s;
                                 }
-                            }
-                            .footer{border-top: 1px solid #EEEEEE;
-                                color: #999999;
-                                margin: 30px 0 0;
-                                padding: 10px 0 0;
-                                text-align: center;}
-                        }
-                        .back{    
-                            width: 100%;
-                            height: 420px;
-                            border-radius: 4px;
-                            -webkit-transform: rotateY( 180deg );
-                            -moz-transform: rotateY( 180deg );
-                            -o-transform: rotateY( 180deg );
-                            transform: rotateY( 180deg );
-                            z-index: 3;
-                            .header{
-                                padding: 15px 20px;
-                                height: 90px;
-                                .motto{
-                                    border-bottom: 1px solid #EEEEEE;
-                                    color: #999999;
-                                    font-size: 14px;
-                                    font-weight: 400;
-                                    padding-bottom: 10px;
-                                    text-align: center
+                                .frpg{
+                                   // left:0%;
+                                    text-align:center;
+                                    .name{margin-bottom:10px;font-size:20px;}
+                                    .lving{color:#afaeae;margin-bottom:5px;}
+                                    .abtust{line-height:27px;}
+                                    
                                 }
+                                //.bkpg{left:100%;}
+                                // .footer{
+                                //     position: absolute;
+                                //     bottom:0;
+                                //     border-top: 1px solid #ddd;
+                                //     width: 100%;
+                                //     left: 0;
+                                //     right: 0;
+                                //     text-align: right;
+                                //     a{
+                                //         display: inline-block;
+                                //         padding: 10px 20px;
+                                //         i{padding-right:5px;}
+                                //     }
+                                // }  
                             }
-                            .content{
-                                background-color: rgba(0, 0, 0, 0);
-                                box-shadow: none;
-                                padding: 10px 20px 20px;
-                                .main{
-                                    min-height: 160px;
-                                    .stats-container{
-                                        width: 100%;
-                                        margin-top: 50px;
-                                    .stats:first-child {
-                                            border-right: 1px solid #EEEEEE;
-                                        }
-                                        .stats:last-child {
-                                            border-left: 1px solid #EEEEEE;
-                                        }
-                                        .stats{
-                                            display: block;
-                                            float: left;
-                                            width: 33.333333%;
-                                            text-align: center;
-                                            h4{
-                                                font-weight: 300;
-                                                margin-bottom: 5px;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            .footer{
-                                border-top: 1px solid #EEEEEE;
-                                color: #999999;
-                                margin: 30px 0 0;
-                                padding: 10px 0 0;
-                                text-align: center;
-                                .social-links{
-                                    a{
-                                        margin:0 7px;
-                                        i{
-                                            color:#2a6496;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        .name{
-                            font-size: 22px;
-                            line-height: 28px;
-                            margin: 10px 0 0;
-                            text-align: center;
-                            text-transform: capitalize;
-                        }
-                        .profession{
-                            color: #999999;
-                            text-align: center;
-                            margin-bottom: 20px;
-                        }
-                        .text-center{text-align:center;}
+                        }   
                     }
                 }
             }
@@ -213,12 +155,10 @@
 input{width:85%;}
 }
 }
-    
-}
 .fu,.fd{
     position: relative;
     background: #f1bd99;
-    border-radius: .4em;
+    border-radius: .4em;    
     padding:10px;width:75%;
     margin:0 0 10px;
 }
@@ -239,7 +179,9 @@ input{width:85%;}
 .fd::after{
     margin-left: 98%;
     transform:rotate(-90deg);
+}    
 }
+
             
 // .card-container:not(.manual-flip):hover .card{
 //     -moz-transform: rotateY( 180deg );
