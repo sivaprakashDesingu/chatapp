@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit {
   private userchats;
   private srfr;     //variable for global search
   private srfrlst;
+  private usfrlt;
   isSearchVisible: boolean;
   isUserProvileEnabled: boolean;
   isProSett: boolean;
@@ -132,6 +133,14 @@ export class DashboardComponent implements OnInit {
     this.isProFfSett = true;
     this.isProFfPenSett = false;
     this.isProSett = false;
+    this.postData={'lgid':this.lgid};
+    this.http.post('http://localhost:3000/getUserFriends', this.postData)
+    .subscribe(data => {
+     this.usfrlt = data;
+     console.log(this.usfrlt);
+    },
+    err => console.log(err),
+    () => console.log());
   }
   enalbeFrPenSett() {
     this.isProFfPenSett = true;
