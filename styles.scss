@@ -32,3 +32,11 @@ ul,ol{padding:0;margin:0;}
     .mat-form-field.mat-form-field-invalid .mat-form-field-ripple{background-color:#da1414}
     .mat-form-field-invalid .mat-input-element, .mat-warn .mat-input-element, .mat-form-field.mat-form-field-invalid .mat-form-field-label .mat-form-field-required-marker, .mat-form-field.mat-form-field-invalid .mat-form-field-label .mat-form-field-required-marker, .mat-focused .mat-form-field-required-marker{caret-color:#da1414;color:#da1414}
 }
+.snackbar {
+    background:#06036b;
+  }
+.snackbar *{
+    color:#fff;
+    font-size:16px;font-family: 'Lato', sans-serif,arial;
+}
+  
