@@ -10,6 +10,7 @@ import { ForgotComponent } from './forgot/forgot.component';
 import { RegisterComponent } from './register/register.component';
 import { ChatboxComponent } from './chatbox/chatbox.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 /* Material packages */
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -36,7 +37,7 @@ import { CookieService } from 'ngx-cookie-service';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,HttpClientModule,
-    FormsModule
+    FormsModule,MatSnackBarModule
 
   ],
   providers: [ChatService,CookieService],
