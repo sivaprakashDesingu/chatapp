@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { CookieService } from 'ngx-cookie-service';
-
+import {MatSnackBar} from '@angular/material';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -19,21 +19,16 @@ export class HomeComponent implements OnInit {
   private uid;
   private upswd;
 
-  constructor(private router: Router,private http: HttpClient,private cookie: CookieService) { }
+  constructor(public snackBar: MatSnackBar,private router: Router,private http: HttpClient,private cookie: CookieService) { }
   getUser() {
-    // this.http.get('http://localhost/chat/homeloc.php')
-    //     .subscribe(data => {
-    //       this.ulst = data;
-    //     },
-    //     err => console.log(err),
-    //     () => console.log(this.ulst));
-
     this.http.get('http://localhost:3000/isValiduser', {
+      //this.http.get('http://ec2-13-58-255-70.us-east-2.compute.amazonaws.com:3000/', {
       params: {
         uid: this.uid
       }
     })
       .subscribe(data => {
+        console.log(data);
         this.ulst= data;
         for(var i=0;i<this.ulst.length;i++){
           if(this.upswd==this.ulst[i].pswd && this.uid==this.ulst[i].uid){
@@ -41,8 +36,17 @@ export class HomeComponent implements OnInit {
             this.cookie.set( 'luname', this.ulst[i].uname );
             this.router.navigate(['/dash']);
           }else{
-          
+            this.snackBar.open("Please give me Valide input","", {
+              duration: 1000,
+              panelClass: ['snackbar']
+            });
           }
+        }
+        if(this.ulst.length==0){
+          this.snackBar.open("Please give me a Valid input","", {
+            duration: 1000,
+            panelClass: ['snackbar']
+          });
         }
       },
       err => console.log(err),
@@ -50,9 +54,6 @@ export class HomeComponent implements OnInit {
   }
     isLoggedIn(){
       this.getUser();
-
-
-     
     }
   ngOnInit() {
     
